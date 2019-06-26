@@ -1,0 +1,24 @@
+(use System)
+(use String)
+(use IO)
+(use Map)
+
+;; for now pretend that we process the file and return '0' (success?!)
+
+(defn file-handler [fname]
+  (do
+    (println fname)
+  0 ))
+
+(defn myfn [i]
+  (file-handler (System.get-arg @i)))
+
+(defn process-args [count]
+  (Array.copy-map &(fn [x] (myfn x))
+                  (ref (Array.range 1 (- count 1) 1))))
+
+(defn main []
+  (let [count (get-args-len)]
+    (if (< count 2)
+      (println "No arguments passed!")
+      (println (ref (str (ref (process-args count))))))))
